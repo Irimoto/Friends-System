@@ -11,7 +11,8 @@
 	if(isset($_POST['del_id']))
 	{
 	
-	$del_sql = 'DELETE FROM `friends_table` WHERE `id`='.$_POST['del_id'];
+	//$del_sql = 'DELETE FROM `friends_table` WHERE `id`='.$_POST['del_id'];
+	$del_sql = 'UPDATE friends_table SET delete_flag = 1 WHERE id ='.$_POST['del_id'];
 	$del_stmt = $dbh->prepare($del_sql);
 	$del_stmt->execute();
 
@@ -43,10 +44,40 @@
 	echo 'の友達';
 	echo '<br/>';
 
-	$sql = 'SELECT*FROM friends_table WHERE from_id='.$area_id;
+	$sql = 'SELECT*FROM friends_table WHERE delete_flag=0 AND from_id='.$area_id ;
 	$stmt = $dbh->prepare($sql);
 	$stmt->execute();
+	//平均年齢
+	$sql3 = 'SELECT AVG(age) FROM friends_table WHERE delete_flag=0 AND from_id='.$area_id;
+	$stmt3 = $dbh->prepare($sql3);
+	$stmt3->execute();
+	//男の数
+	$sql4 = 'SELECT COUNT(gender) FROM friends_table WHERE delete_flag=0 AND gender="'.男.'" AND from_id='.$area_id;
+	$stmt4 = $dbh->prepare($sql4);
+	$stmt4->execute();
+	//女の数
+	$sql5 = 'SELECT COUNT(gender) FROM friends_table WHERE delete_flag=0 AND gender="'.女.'" AND from_id='.$area_id;
+	$stmt5 = $dbh->prepare($sql5);
+	$stmt5->execute();
 
+
+
+	$rec3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+	$rec4 = $stmt4->fetch(PDO::FETCH_ASSOC);
+	$rec5 = $stmt5->fetch(PDO::FETCH_ASSOC);
+
+	echo '平均年齢';
+	echo ' ';
+	echo $rec3['AVG(age)'];
+	echo '<br />';
+	echo '男';
+	echo $rec4['COUNT(gender)'];
+	echo '人';
+	echo ' ';
+	echo '女';
+	echo $rec5['COUNT(gender)'];
+	echo '人';
+	echo '<br />';
 	while(1)
 	{    
 		$rec = $stmt->fetch(PDO::FETCH_ASSOC);
