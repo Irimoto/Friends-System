@@ -61,9 +61,11 @@
 	$stmt5->execute();
 
 
-
+	//平均年齢
 	$rec3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+	//男の数
 	$rec4 = $stmt4->fetch(PDO::FETCH_ASSOC);
+	//女の数
 	$rec5 = $stmt5->fetch(PDO::FETCH_ASSOC);
 
 	echo '平均年齢';

@@ -30,12 +30,22 @@
 		{
 			break;
 		}
-		echo '<a href="friends.php?area_id='.$rec['id'].'">';
-		echo  $rec['id'];
-		echo  $rec['name'];
-		echo '</a>';
-		echo '('.$rec2['COUNT(f.from_id)'].')';
-		echo '<br/>';
+		//人数がいるかどうか判断する
+			if($rec2['COUNT(f.from_id)'] > 0){
+			echo '<a href="friends.php?area_id='.$rec['id'].'">';
+			echo  $rec['id'];
+			echo  $rec['name'];
+			echo '</a>';
+			echo '('.$rec2['COUNT(f.from_id)'].')';
+			echo '<br/>';
+			}
+			else{
+			echo  $rec['id'];
+			echo  $rec['name'];
+			echo '</a>';
+			echo '('.$rec2['COUNT(f.from_id)'].')';
+			echo '<br/>';
+			}
 	}
 
 	$dbh = null;
