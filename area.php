@@ -42,7 +42,6 @@
 			else{
 			echo  $rec['id'];
 			echo  $rec['name'];
-			echo '</a>';
 			echo '('.$rec2['COUNT(f.from_id)'].')';
 			echo '<br/>';
 			}
